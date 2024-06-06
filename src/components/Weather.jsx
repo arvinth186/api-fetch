@@ -40,6 +40,9 @@ const Weather = () => {
 
             const response = await axios.get(url);
             console.log(response.data);
+            if (response.status !== 200) {
+                throw new Error('City not found');
+            }
             const useIcon = icons[response.data.weather[0].icon] || ClearIcon;
 
             // Set the weather state with the data from the API
@@ -53,6 +56,7 @@ const Weather = () => {
             });
         } catch (err) {
             console.log(err);
+            toast.error("Please enter a valid city name.");
         }
     };
 
